@@ -1,0 +1,45 @@
+<table class="table table-striped clearance_batches">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Date clearanced</th>
+      <th># of items</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody data-bind="foreach: allBatches">
+    <tr>
+      <td>
+          <a data-bind="attr: { href: url}">Clearance Batch <!--ko text: id--><!--/ko--></a>
+      </td>
+      <td data-bind="text: created_at"></td>
+      <td data-bind="text: items_count"></td>
+      <td><%= button_tag "undo", class: 'btn', data: { bind: "click: $parent.undoClearance" } %></td> 
+    <tr>
+  </tbody>
+<!-- 
+  <tbody>
+    <%- @clearance_batches.each do |clearance_batch| -%>
+      <tr>
+        <td><%= link_to("Clearance Batch #{clearance_batch.id}", clearance_batch_path(clearance_batch)) %></td>
+        <td><%= l(clearance_batch.created_at, format: :short) %></td>
+        <td><%= clearance_batch.items.count %></td>
+      </tr>
+    <%- end -%>
+  </tbody>
+-->
+</table>
+
+<script>
+    
+    var batches = [
+        <% batches = @clearance_batches.map do |b| %>
+          <% url = clearance_batch_path(b) %>
+          <% created_at = l(b.created_at, format: :short) %>
+          <%== "{id: #{b.id}, created_at: \"#{created_at}\", url: \"#{url}\", items_count: #{b.items.count}}," %>
+        <% end %>
+    ]; 
+    var batchList = new BatchListModel(batches);
+    ko.applyBindings(batchList, document.getElementById('recent_clearance_batches'));
+   
+</script>

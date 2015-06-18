@@ -1,0 +1,100 @@
+<div id="items_index">
+<div class="clearance_activity_container">
+
+<h4>Items</h4>
+<span>
+  <%= link_to "Clearance Tool", root_path %>
+  &nbsp;-&nbsp;
+</span>
+<select name="group" data-bind="value: groupBy, 
+                                options: $root.groupOptions,
+                                optionsCaption: 'Group By',
+                                event: { change: changeGroup }
+                               "></select> 
+<br/>
+<!-- ko if: showAll -->
+<%= will_paginate @items %>
+<!-- /ko -->
+<table class="table table-striped group-table">
+  <thead data-bind="visible:  allItems().length > 0">
+    <th>ID</th>
+    <th>Status</th>
+    <th>Name</th>
+    <th>Size</th>
+    <th>Color</th>
+    <th>Clearance Price</th>
+    <th>Batch ID</th>
+  </thead>  
+
+  <tbody data-bind="visible: allItems().length == 0">
+    <tr>
+      <td><h4>No Items</h4></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+  <tbody data-bind="foreach: groups, visible: allItems().length > 0 && !showAll()">
+    <tr>
+      <td data-bind="text: $data"></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <!-- ko foreach: ( $root.groupBy() == 'Clearance Batch ID' ? $root.allItems.index.clearance_batch_id()[$data] : $root.allItems.index.status()[$data] ) -->
+      <tr>
+        <td data-bind="text: id"></td>
+        <td data-bind="text: status"></td>
+        <td data-bind="text: name"></td>
+        <td data-bind="text: size"></td>
+        <td data-bind="text: color"></td>
+        <td data-bind="text: clearance_price"></td>
+        <td data-bind="text: clearance_batch_id"></td>
+      </tr>
+    <!-- /ko -->
+  </tbody>
+  <tbody data-bind="foreach: allItems, visible: allItems().length > 0 && showAll">
+    <tr>
+      <td data-bind="text: id"></td>
+      <td data-bind="text: status"></td>
+      <td data-bind="text: name"></td>
+      <td data-bind="text: size"></td>
+      <td data-bind="text: color"></td>
+      <td data-bind="text: clearance_price"></td>
+      <td data-bind="text: clearance_batch_id"></td>
+    </tr>
+  </tbody>
+</table>
+<!-- ko if: showAll -->
+<%= will_paginate @items %>
+<!-- /ko -->
+
+
+
+
+</div>
+</div>
+<div class="clear"></div>
+<script>
+  var all_items = [
+        <% items = @all_items.map do |i| %>
+          <% url = item_path(i) %>
+          <%== "{id: #{i.id}, name: \"#{i.style.name}\", clearance_price: \"#{number_to_currency(i.price_sold)}\", url: \"#{url}\", type: \"#{i.style.type}\", status:\"#{i.status}\", color: \"#{i.color}\", clearance_batch_id: #{i.status == 'clearanced' ? i.clearance_batch_id.nil? ? "\"SCANNER\"" : i.clearance_batch_id : "\"\"" },  size: \"#{i.size}\"}," %>
+        <% end %>
+  ] 
+  var items = [
+        <% items = @items.map do |i| %>
+          <% url = item_path(i) %>
+          <%== "{id: #{i.id}, name: \"#{i.style.name}\", clearance_price: \"#{number_to_currency(i.price_sold)}\", url: \"#{url}\", type: \"#{i.style.type}\", status:\"#{i.status}\", color: \"#{i.color}\", clearance_batch_id: #{i.status == 'clearanced' ? i.clearance_batch_id.nil? ? "\"SCANNER\"" : i.clearance_batch_id : "\"\"" },  size: \"#{i.size}\"}," %>
+        <% end %>
+  ]; 
+  var itemIndex = new ItemIndexModel(items, all_items); 
+  ko.applyBindings(itemIndex, document.getElementById('items_index'));
+</script>
+

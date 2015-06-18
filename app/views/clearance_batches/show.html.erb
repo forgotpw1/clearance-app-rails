@@ -1,0 +1,45 @@
+<% retail_sum = @clearance_batch.items.each.sum { |i| i.style.retail_price } %>
+<% clearance_sum = @clearance_batch.items.each.sum { |i| i.price_sold } %>
+
+<div class="clearance_activity_container">
+
+  <h4>Clearance Batch <%= @clearance_batch.id %> created
+    <%= l(@clearance_batch.created_at, format: :short) %>
+  </h4>
+  <span>
+    <%= link_to "Clearance Tool", root_path %>
+    &nbsp;-&nbsp;
+    <%= link_to "Export as PDF", "/clearance_batches/#{@clearance_batch.id}.pdf" %>
+  </span>
+  <table class="table table-striped"> 
+    <thead>
+      <tr>
+        <th>type</th>
+        <th>name</th>
+        <th>price<dd/th>
+        <th>clearance price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @clearance_batch.items.each do |i| %>
+        <tr>
+          <td><%= i.style.type %></td>
+          <td><%= i.style.name %></td>
+          <td><%= number_to_currency(i.style.retail_price) %></td>
+          <td><%= number_to_currency(i.price_sold) %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td><strong>Total:</strong></td>
+        <td><strong><%= @clearance_batch.items.count %> products</td>
+        <td>
+            <strong><%= number_to_currency(retail_sum) %></strong>
+        </td> 
+        <td>
+            <strong><u><%= number_to_currency(clearance_sum) %></u></strong>
+        </td> 
+      </tr>      
+    </tbody>
+
+  </table>
+</div>

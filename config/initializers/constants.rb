@@ -1,0 +1,1 @@
+CLEARANCE_PRICE_PERCENTAGE  = BigDecimal.new("0.75")

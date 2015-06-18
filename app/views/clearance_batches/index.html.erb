@@ -1,0 +1,11 @@
+<h1>Clearance Tool</h1>
+<h2>Clearance Batches</h2>
+
+<%= form_tag(clearance_batches_path, multipart: true, class: 'form-inline', role: 'form') do %>
+  <div class="form-group">
+    <%= label_tag 'csv_batch_file', 'Select batch file' %>
+    <%= file_field_tag 'csv_batch_file', class: 'form-control' %>
+  </div>
+  <%= button_tag 'upload batch file', class: 'btn btn-primary' %>
+<% end %>
+<%= render partial: 'shared/clearance_batches' %>

@@ -1,0 +1,30 @@
+<div class="clearance_tool_container">
+  <h2>Item Clearance Tool</h2>
+  <div class="clearance_inputs" id="clearance_inputs">
+    <%= form_tag('/clearance_batches', multipart: true, class: 'form-inline', role: 'form') do %>
+      <%= label_tag 'item_id', 'Item ID' %>
+      <%= text_field_tag 'item_id', "", data: { bind: "value: potentialId" }  %>
+      <%= button_tag 'clearance item', class: 'btn clearance-tool-btn', data: { bind: "click: addItem" } %>
+        &nbsp;or&nbsp; 
+      <%= label_tag 'csv_batch_file', 'Select batch file' %>
+      <%= file_field_tag 'csv_batch_file', class: 'form-control' %>
+      <%= button_tag 'upload batch file', class: 'btn clearance-tool-btn' %>
+    <% end %>
+  </div>
+</div>
+<div class="clearance_activity_container">
+   <div class="recent_clearance_items" id="recent_clearance_items">
+     <h4>Recent Clearance Items</h4><span><%= link_to 'See All Items', items_path %></span>
+     <%= render partial: 'shared/clearance_items' %>
+   </div>
+   <div class="recent_clearance_batches" id="recent_clearance_batches">
+     <h4>Recent Clearance Batches</h4>
+     <%= render partial: 'shared/clearance_batches' %>
+   </div> 
+   <div class="clear"></div>
+</div>
+
+<script>
+  var itemAdder = new ItemAdderModel(); 
+  ko.applyBindings(itemAdder, document.getElementById('clearance_inputs'));
+</script>

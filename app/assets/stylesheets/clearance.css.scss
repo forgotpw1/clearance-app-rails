@@ -1,0 +1,59 @@
+h2 { color: #ffffff; 
+      font-weight: bold; 
+};
+
+.clear {clear: both}
+
+#footer { 
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+}
+
+.clearance_tool_container { 
+  background-color: #ff0000;
+  padding: 15px 50px;
+  border-radius: 15px 50px;
+  margin-top: 15px;
+  border: solid 2px #ff0000;
+  .clearance_inputs
+  {
+    label { color: #ffffff } 
+  };
+}
+
+.clearance_activity_container
+{
+  margin-top: 10px; 
+  padding: 10px 50px;
+  border-radius: 15px 50px;
+  border: solid 2px green;
+  .recent_clearance_items, .recent_clearance_batches {
+    display: inline-block;
+  }
+  .recent_clearance_items { float: left }
+  .recent_clearance_batches { float: right } 
+}
+
+#items_index{
+  display:block;
+}
+
+.clearance-tool-btn {
+  // @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+  $color: #fff;
+  $background: green;
+  $border: #333;
+  @include button-variant($color, $background, $border);
+  // override the default darkening with lightening
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: lighten($background, 20%); //10% default
+    border-color: lighten($border, 22%); // 12% default
+  }
+}

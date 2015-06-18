@@ -1,0 +1,34 @@
+
+Kicking prices asses down - Superhero price kick.
+
+#- Move clearence config value to app config to reduce Item memory footprint
+#- Make UI changes to show batch reports
+- Make report group by status and batch
+- Get tests failing on JS passing
+# Add knockout code to project
+# Add capybarra tests for report
+- Update clearence item specs
+- Add text field
+- Add specs for clearance price
+-Add manager to update  clearane or uncllearance events for items and batches
+
+- Autofire request for doing a single item clearence
+4 should show 4 44 444
+- Add Item Get endpoint items#get
+
+
+Assuming we can and want to show the buyer the wholesale price 
+Assume a user makes a mistake
+
+Status
+  item.id - name - price - clearence price - origin (Scanner or Batch ID)
+
+Batch id
+  item.id - style.name - price - clearence price 
+
+
+Extras 
+- All recently added items with sorting 
+- PDF (Because someone at the vendor will get to feel important)
+
+
